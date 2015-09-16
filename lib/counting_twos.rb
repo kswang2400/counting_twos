@@ -11,8 +11,8 @@ class TwoCounter
     # breaks up a number into an array of base tens
     output = []
 
-    length = num.to_s.size
-    start_divisor = 10 ** (length - 1)
+    length = Math.log10(num).floor
+    start_divisor = 10 ** (length)
 
     until num == 0
       digit, num = num.divmod(start_divisor)
