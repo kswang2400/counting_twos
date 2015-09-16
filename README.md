@@ -26,7 +26,8 @@ range (order of magnitude)      number of zeros
 
 ever "pile" in an order of magnitude (e.g. 10..19, 20..29, 30..39) will be the same
 size as the total of the previous order of magnitude. If it's prepended by a two,
-then you need to add 10 * d for all the leading 2's in that piles.
+then you need to add 10 * (d - 1) where d is the number of digits for all the leading 
+2's in that piles.
 
 Additionally, the sum of each order of magnitude can be furthered simplified down to 
 
