@@ -29,7 +29,10 @@ size as the total of the previous order of magnitude. If it's prepended by a two
 then you need to add 10 * d for all the leading 2's in that piles.
 
 Additionally, the sum of each order of magnitude can be furthered simplified down to 
-```(n) * (10 ** (n - 1))``` where n is the order of magnitude of that number. 
+
+```(n) * (10 ** (n - 1))``` 
+
+where n is the order of magnitude of that number. 
 
 Because of these two patterns, there is a mathematical way to solve any number 
 in practically constant time by breaking the number into piles of different magnitudes
