@@ -8,6 +8,7 @@ the answer would be 1 (just the number 2), whereas if n was 23 there would be 7 
 ## Solution: 
 
 run ```bundle install``` if you plan on running test suite
+
 run ```rspec spec``` to run test suite
 
 run ```ruby script.rb``` to view benchmarks (listed below)
@@ -26,7 +27,7 @@ otherwise, to run custom test cases, cd into ```lib```, open ```pry``` and ```lo
   =>  27
 ```
 
-much more scalable than naive solution; implemented memcache in naive solution just in case
+much more scalable than naive solution; implemented memcache in naive solution for verification
 
 ```
 Benchmark.bm do |benchmark|
