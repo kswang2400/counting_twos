@@ -1,6 +1,7 @@
 # counting twos
 
-## Problem: Count the 2’s between 0 and N.  And every 2 digit counts as a 2, so if N was 7 
+## Problem: 
+Count the 2’s between 0 and N.  And every 2 digit counts as a 2, so if N was 7 
 the answer would be 1 (just the number 2), whereas if n was 23 there would be 7 2’s 
 {2, 12, 20, 21, 22 (this counts for 2), 23}
 
