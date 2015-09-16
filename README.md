@@ -1,36 +1,51 @@
 # counting twos
 
-Count the 2’s between 0 and N.  And every 2 digit counts as a 2, so if N was 7 
+## Problem: Count the 2’s between 0 and N.  And every 2 digit counts as a 2, so if N was 7 
 the answer would be 1 (just the number 2), whereas if n was 23 there would be 7 2’s 
 {2, 12, 20, 21, 22 (this counts for 2), 23}
 
+## Solution: 
+
 run ```bundle install``` if you plan on running test suite
+run ```rspec spec``` to run test suite
 
-run ```ruby counting_twos.rb``` to view benchmarks (listed below)
+run ```ruby script.rb``` to view benchmarks (listed below)
 
-otherwise open ``irb``` or ```pry``` and ```load lib/counting_twos.rb```
+otherwise, to run custom test cases, cd into ```lib```, open ```pry``` and ```load "counting_twos.rb"```
 
-## Usage
+### Usage
 
 ```
-  counting_twos(321)
+  c = TwoCounter.new
+  c.counting_twos(15432)
+  => 6694
+  c.counting_twos(321)
   =>  164
-  counting_twos(123)
+  c.counting_twos(123)
   =>  27
 ```
 
-much more scalable than naive solution
+much more scalable than naive solution; implemented memcache in naive solution just in case
 
 ```
 Benchmark.bm do |benchmark|
-  benchmark.report { p counting_twos_naive(0, 1928374) }
-  benchmark.report { p counting_twos(         1928374) }
+  benchmark.report { p counter.counting_twos_naive(1928374) }
+  benchmark.report { p counter.counting_twos(      1928374, false) }
+  benchmark.report { p counter.counting_twos(321) }
+  benchmark.report { p counter.counting_twos(123) }
+  benchmark.report { p counter.counting_twos_naive(1928374) }
 end
 
 
        user     system      total        real
  1169953
-  5.030000   0.020000   5.050000 (  5.060768)
+  4.650000   0.010000   4.660000 (  4.667344)
  1169953
-  0.000000   0.000000   0.000000 (  0.000078)
+  0.000000   0.000000   0.000000 (  0.000070)
+ 164
+  0.000000   0.000000   0.000000 (  0.000026)
+ 27
+  0.000000   0.000000   0.000000 (  0.000026)
+ 1169953
+  0.000000   0.000000   0.000000 (  0.000011)
 ```
