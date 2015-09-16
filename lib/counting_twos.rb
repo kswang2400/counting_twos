@@ -12,12 +12,12 @@ class TwoCounter
     output = []
 
     length = Math.log10(num).floor
-    start_divisor = 10 ** (length)
+    divisor = 10 ** (length)
 
     until num == 0
-      digit, num = num.divmod(start_divisor)
-      output.push(digit * start_divisor)
-      start_divisor = start_divisor / 10
+      digit, num = num.divmod(divisor)
+      output.push(digit * divisor)
+      divisor = divisor / 10
     end
 
     output
@@ -26,6 +26,7 @@ class TwoCounter
   def counting_twos_naive(num)
     # functional naive solution for verification purposes
     return @cache[num] if @cache[num]
+
     count = 0
 
     (0..num).each do |num|
@@ -35,16 +36,16 @@ class TwoCounter
     end
 
     @cache[num] = count
+
     count
   end
 
   def counting_twos(num, use_cache = true)
     return @cache[num] if @cache[num] && use_cache
 
-    count = 0
     num_array = base_tenify(num)
+    count = 0
     
-    # patchwork fix for edge cases
     edge = false
     extra = 0
 
@@ -56,8 +57,8 @@ class TwoCounter
     end
 
     count += extra + 1 if extra != 0
-
     @cache[num] = count
+
     count
   end
 
@@ -70,7 +71,6 @@ class TwoCounter
     first = trailing_nines.to_s[0].to_i
     special_num = trailing_nines.to_s.size - 1
     pile_size = (special_num) * (10 ** (special_num - 1)).to_i
-    # p "first #{first}, special #{special_num}, pile #{pile_size}"
 
     count = (first + 1) * pile_size
     count += (10 ** special_num) if first >= 2
