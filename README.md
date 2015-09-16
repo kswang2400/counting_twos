@@ -53,12 +53,12 @@ number remains is what you have to add to the final total (referred to as extra 
 
 ```
 Example: 1234
-          (0..999) + (1000..1234)
-                         (0..234)
-                         (0..199) + (200..234) *need to consider 34 + 1 more 2's
-                                    (0..34)     in the hundreds place
-                                    (0..29) + (30..34)
-                                              (0..4)
+         (0..999) + (1000..1234)
+                    (0..234)
+                    (0..199) + (200..234) *need to consider 34 + 1 more 2's
+                               (0..34)     in the hundreds place
+                               (0..29) + (30..34)
+                                         (0..4)
 ```
 
 ### Environment
@@ -69,21 +69,26 @@ run ```rspec spec``` to run test suite
 
 run ```ruby script.rb``` to view benchmarks (listed below)
 
-otherwise, to run custom test cases, cd into ```lib```, open ```pry``` and ```load "counting_twos.rb"```
+otherwise, to run custom test cases, cd into ```lib```, open ```pry```, and ```load "counting_twos.rb"```
 
 ### Usage
 
 ```
+  load "counting_twos.rb"
+  => true
   c = TwoCounter.new
+  => #<TwoCounter:0x007fc64d6d7958 @cache={}>
   c.counting_twos(15432)
   => 6694
   c.counting_twos(321)
   =>  164
   c.counting_twos(123)
   =>  27
+  c
+  => #<TwoCounter:0x007fc64d6d7958 @cache={15432=>6693, 321=>164, 123=>27}>
 ```
 
-much more scalable than naive solution; implemented memcache in naive solution
+much more scalable than naive solution; implemented memcache for quick lookup of old numbers
 
 ```
 Benchmark.bm do |benchmark|
@@ -107,3 +112,5 @@ end
  1169953
   0.000000   0.000000   0.000000 (  0.000011)
 ```
+
+
