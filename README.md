@@ -9,6 +9,7 @@ the answer would be 1 (just the number 2), whereas if n was 23 there would be 7 
 
 I noticed there was a pattern based on how many digits were in the number 
 
+```
 range (order of magnitude)    number of zeros
 (0..9)   one digit total:     **1**
 (10..19)                      1
@@ -19,6 +20,7 @@ range (order of magnitude)    number of zeros
 (200.299)                     120
 (100.999) three digit total:  **300**
 (1000.9999) four digit total: **4000**
+```
 
 ever "piles" in an order of magnitude (e.g. 10..19 20..29 30..39) will be the same
 size as the total of the previous order of magnitude. If it's prepended by a two,
@@ -30,6 +32,7 @@ Using those two patterns, I came up with a mathematical way to solve any number
 in practically constant time by breaking the number into piles of different magnitudes
 and computing the total for each
 
+```
 Example:  5876
           **(0..4999)** + (5000..5876)
                       (0..876)  * disregard leading 5, never will be 2
@@ -37,10 +40,12 @@ Example:  5876
                                  (0..76)
                                  **(0..69)** + (70..76)
                                            **(0..6)**
+```
 
 Edge Cases: When the digit is a two, you can't disregard the leading 2, so whatever 
 number remains is what you have to add to the final total (referred to as extra in the code)
 
+```
 Example: 1234
           **(0..999)** + (1000..1234)
                          (0..234)
@@ -48,9 +53,7 @@ Example: 1234
                                     (0..34) * need to consider 34 + 1 more 2's in the hundreds place
                                     **(0..29)** + (30..34)
                                               **(0..4)**
-
-
-
+```
 
 run ```bundle install``` if you plan on running test suite
 
