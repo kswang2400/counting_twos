@@ -27,7 +27,7 @@ otherwise, to run custom test cases, cd into ```lib```, open ```pry``` and ```lo
   =>  27
 ```
 
-much more scalable than naive solution; implemented memcache in naive solution for verification
+much more scalable than naive solution; implemented memcache in naive solution
 
 ```
 Benchmark.bm do |benchmark|
