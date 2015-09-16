@@ -39,11 +39,12 @@ class TwoCounter
   end
 
   def counting_twos(num, use_cache = true)
-    # memcache
     return @cache[num] if @cache[num] && use_cache
 
     count = 0
     num_array = base_tenify(num)
+    
+    # patchwork fix for edge cases
     edge = false
     extra = 0
 
@@ -63,15 +64,15 @@ class TwoCounter
   def total_less_than(trailing_nines)
     # returns the number of twos from 0 to any number with trailing 9s
     # e.g. total_less_than(4999) = 2500
-    return 0 if trailing_nines < 1
+    return 0 if trailing_nines < 2
     return 1 if trailing_nines < 10
 
     first = trailing_nines.to_s[0].to_i
     special_num = trailing_nines.to_s.size - 1
-    stack_size = (special_num) * (10 ** (special_num - 1)).to_i
-    # p "first #{first}, special #{special_num}, stack #{stack_size}"
+    pile_size = (special_num) * (10 ** (special_num - 1)).to_i
+    # p "first #{first}, special #{special_num}, pile #{pile_size}"
 
-    count = (first + 1) * stack_size
+    count = (first + 1) * pile_size
     count += (10 ** special_num) if first >= 2
 
     count

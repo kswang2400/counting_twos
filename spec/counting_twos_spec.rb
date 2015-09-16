@@ -16,7 +16,7 @@ RSpec.describe TwoCounter do
   describe "#counting_twos" do
     it "should be much faster" do
       start = Time.now
-      @counter.counting_twos(1234567)
+      @counter.counting_twos(123456789987654321)
       expect(Time.now - start).to be < 10 ** -4
     end
 
