@@ -7,7 +7,7 @@ the answer would be 1 (just the number 2), whereas if n was 23 there would be 7 
 
 ## Solution:
 
-There is a pattern based on how many digits were in the number 
+There is a pattern based on how many digits are in the number 
 
 ```
 range (order of magnitude)      number of zeros
@@ -41,13 +41,15 @@ in constant time by breaking the number into piles of different magnitudes
 and computing the total for each
 
 ```
-Example:  5876
-          (0..4999) + (5000..5876)
-                      (0..876)    *disregard leading 5, will never be a 2
-                      (0..799) + (800..876)
-                                 (0..76)
-                                 (0..69) + (70..76)
-                                           (0..6)
+Example:  5876                              *disregard leading 5, will never be a 2
+          (0..4999) +       (5000..5876)
+                            (0..876)
+                            (0..799) +      (800..876)
+                                            (0..76)
+                                            (0..69) +     (70..76)
+                                                          (0..6)
+          (5(300) + 1000) + (8(20) + 100) + (7(1) + 10) + (6(0) + 1)
+          = 2500 + 260 + 17 + 1 = 2778
 ```
 
 Edge Case: When the digit is a two, you can't disregard the leading 2, so whatever 
@@ -55,12 +57,14 @@ number remains is what you have to add to the final total (referred to as "extra
 
 ```
 Example:  1234
-          (0..999) + (1000..1234)
-                     (0..234)
-                     (0..199) + (200..234)    *need to consider 34 + 1 more 2's
-                                (0..34)       in the hundreds place
-                                (0..29) + (30..34)
-                                          (0..4)
+          (0..999) +     (1000..1234)                       *need to consider 34 + 1 more 2's
+                         (0..234)                           in the hundreds place
+                         (0..199) +           (200..234)
+                                              (0..34)
+                                              (0..29) +     (30..34)
+                                                            (0..4)
+          (1(300) + 0) + (2(20) + (34 + 1)) + (3(1) + 10) + (4(0) + 1)
+          = 300 + 75 + 13 + 1 = 389
 ```
 
 ### Environment
@@ -80,11 +84,11 @@ otherwise, to run custom test cases, cd into ```lib```, open ```pry```, and ```l
   => true
   c = TwoCounter.new
   => #<TwoCounter:0x007fc64d6d7958>
-  c.counting_twos(15432)
+  c.count_twos(15432)
   => 6694
-  c.counting_twos(321)
+  c.count_twos(321)
   =>  164
-  c.counting_twos(123)
+  c.count_twos(123)
   =>  27
 ```
 
@@ -93,9 +97,9 @@ much more scalable than naive solution
 ```
 Benchmark.bm do |benchmark|
   benchmark.report { p counter.counting_twos_naive(1928374) }
-  benchmark.report { p counter.counting_twos(      1928374, false) }
-  benchmark.report { p counter.counting_twos(321) }
-  benchmark.report { p counter.counting_twos(123) }
+  benchmark.report { p counter.count_twos(      1928374, false) }
+  benchmark.report { p counter.count_twos(321) }
+  benchmark.report { p counter.count_twos(123) }
   benchmark.report { p counter.counting_twos_naive(1928374) }
 end
 
