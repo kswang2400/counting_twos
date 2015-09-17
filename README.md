@@ -78,7 +78,7 @@ otherwise, to run custom test cases, cd into ```lib```, open ```pry```, and ```l
   load "counting_twos.rb"
   => true
   c = TwoCounter.new
-  => #<TwoCounter:0x007fc64d6d7958 @cache={}>
+  => #<TwoCounter:0x007fc64d6d7958>
   c.counting_twos(15432)
   => 6694
   c.counting_twos(321)
@@ -86,10 +86,10 @@ otherwise, to run custom test cases, cd into ```lib```, open ```pry```, and ```l
   c.counting_twos(123)
   =>  27
   c
-  => #<TwoCounter:0x007fc64d6d7958 @cache={15432=>6693, 321=>164, 123=>27}>
+  => #<TwoCounter:0x007fc64d6d7958>
 ```
 
-much more scalable than naive solution; implemented memcache for quick lookup of old numbers
+much more scalable than naive solution
 
 ```
 Benchmark.bm do |benchmark|
