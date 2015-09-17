@@ -7,7 +7,7 @@ the answer would be 1 (just the number 2), whereas if n was 23 there would be 7 
 
 ## Solution:
 
-I noticed there was a pattern based on how many digits were in the number 
+There is a pattern based on how many digits were in the number 
 
 ```
 range (order of magnitude)      number of zeros
@@ -24,32 +24,33 @@ range (order of magnitude)      number of zeros
 (0.9999) (four digit total)     **4000**
 ```
 
-ever "pile" in an order of magnitude (e.g. 10..19, 20..29, 30..39) will be the same
-size as the total of the previous order of magnitude. If it's prepended by a two,
-then you need to add 10 * (d - 1) where d is the number of digits for all the leading 
-2's in that piles.
+ever "pile" in an order of magnitude (e.g. 10..19; 20..29; 30..39) will be the same
+size as the total of the previous order of magnitude. If it's prepended by a number 
+greater than two, then you need to add 10 * (d - 1) where d is the number of digits 
+for all the leading 2's in that piles. If the first number is a two, there is a separate
+edge case to cover that described below.
 
 Additionally, the sum of each order of magnitude can be furthered simplified down to 
 
 ```(n) * (10 ** (n - 1))``` 
 
-where n is the order of magnitude of that number. 
+where n is log10(num). 
 
 Because of these two patterns, there is a mathematical way to solve any number 
-in practically constant time by breaking the number into piles of different magnitudes
+in constant time by breaking the number into piles of different magnitudes
 and computing the total for each
 
 ```
 Example:  5876
           (0..4999) + (5000..5876)
-                      (0..876)  *disregard leading 5, will never be a 2
+                      (0..876)    *disregard leading 5, will never be a 2
                       (0..799) + (800..876)
                                  (0..76)
                                  (0..69) + (70..76)
                                            (0..6)
 ```
 
-Edge Cases: When the digit is a two, you can't disregard the leading 2, so whatever 
+Edge Case: When the digit is a two, you can't disregard the leading 2, so whatever 
 number remains is what you have to add to the final total (referred to as "extra" in the code)
 
 ```
@@ -85,8 +86,6 @@ otherwise, to run custom test cases, cd into ```lib```, open ```pry```, and ```l
   =>  164
   c.counting_twos(123)
   =>  27
-  c
-  => #<TwoCounter:0x007fc64d6d7958>
 ```
 
 much more scalable than naive solution
