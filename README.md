@@ -17,11 +17,11 @@ range (order of magnitude)      number of zeros
 (30..39)                        1       1 * 10 + 10 = 20
 ...
 (90.99)                         1
-(10..99) (two digit total)      **20**
+(0..99) (two digit total)       **20**
 (100.199)                       20
 (200.299)                       120     20 * 10 + 100 = 300
-(100.999) (three digit total)   **300**
-(1000.9999) (four digit total)  **4000**
+(0.999) (three digit total)     **300**
+(0.9999) (four digit total)     **4000**
 ```
 
 ever "pile" in an order of magnitude (e.g. 10..19, 20..29, 30..39) will be the same
@@ -42,7 +42,7 @@ and computing the total for each
 ```
 Example:  5876
           (0..4999) + (5000..5876)
-                      (0..876)  *disregard leading 5, never will be 2
+                      (0..876)  *disregard leading 5, will never be a 2
                       (0..799) + (800..876)
                                  (0..76)
                                  (0..69) + (70..76)
@@ -50,16 +50,16 @@ Example:  5876
 ```
 
 Edge Cases: When the digit is a two, you can't disregard the leading 2, so whatever 
-number remains is what you have to add to the final total (referred to as extra in the code)
+number remains is what you have to add to the final total (referred to as "extra" in the code)
 
 ```
-Example: 1234
-         (0..999) + (1000..1234)
-                    (0..234)
-                    (0..199) + (200..234) *need to consider 34 + 1 more 2's
-                               (0..34)     in the hundreds place
-                               (0..29) + (30..34)
-                                         (0..4)
+Example:  1234
+          (0..999) + (1000..1234)
+                     (0..234)
+                     (0..199) + (200..234)    *need to consider 34 + 1 more 2's
+                                (0..34)       in the hundreds place
+                                (0..29) + (30..34)
+                                          (0..4)
 ```
 
 ### Environment
@@ -114,4 +114,18 @@ end
   0.000000   0.000000   0.000000 (  0.000011)
 ```
 
+```
+  1000.times do
+    num = rand(99999)
+    expect(@counter.count_twos(num)).to eq @counter.counting_twos_naive(num)
+  end
+  
+  =====
+  TwoCounter
+    #count_twos
+      should be much faster
+      should give you the right answer
 
+  Finished in 1 minute 37.16 seconds (files took 0.09791 seconds to load)
+  2 examples, 0 failures
+```

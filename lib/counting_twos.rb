@@ -1,81 +1,37 @@
 require "benchmark"
 
 class TwoCounter
-  attr_reader :cache
-
-  def initialize
-    @cache = Hash.new
-  end
-
-  def base_tenify(num)
-    # breaks up a number into an array of base tens
-    output = []
-
-    length = Math.log10(num).floor
-    divisor = 10 ** (length)
-
-    until num == 0
-      digit, num = num.divmod(divisor)
-      output.push(digit * divisor)
-      divisor = divisor / 10
-    end
-
-    output
-  end
-
   def counting_twos_naive(num)
     # functional naive solution for verification purposes
-    return @cache[num] if @cache[num]
-
     count = 0
 
-    (0..num).each do |num|
-      num.to_s.each_char do |c|
+    (0..num).each do |n|
+      n.to_s.each_char do |c|
         count += 1 if c == "2"
       end
     end
 
-    @cache[num] = count
-
     count
   end
 
-  def counting_twos(num, use_cache = true)
-    return @cache[num] if @cache[num] && use_cache
-
-    num_array = base_tenify(num)
+  def count_twos(num)
+    base = 1
     count = 0
-    
-    edge = false
     extra = 0
 
-    num_array.each do |n|
-      extra += n if edge
-      count += total_less_than(n - 1)
+    until num == 0
+      num, digit = num.divmod(10)
+      pile_size = Math.log10(base) * base / 10
 
-      edge = true if edge || n.to_s[0] == "2"
+      count += digit * (pile_size)
+      count += base if digit > 2
+      count += extra + 1 if digit == 2
+      
+      extra += digit * base
+      base *= 10
     end
 
-    count += extra + 1 if extra != 0
-    @cache[num] = count
-
-    count
-  end
-
-  def total_less_than(trailing_nines)
-    # returns the number of twos from 0 to any number with trailing 9s
-    # e.g. total_less_than(4999) = 2500
-    return 0 if trailing_nines < 2
-    return 1 if trailing_nines < 10
-
-    first = trailing_nines.to_s[0].to_i
-    special_num = trailing_nines.to_s.size - 1
-    pile_size = (special_num) * (10 ** (special_num - 1)).to_i
-
-    count = (first + 1) * pile_size
-    count += (10 ** special_num) if first >= 2
-
-    count
+    count.to_i
   end
 end
 
