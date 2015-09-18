@@ -97,10 +97,9 @@ much more scalable than naive solution
 ```
 Benchmark.bm do |benchmark|
   benchmark.report { p counter.counting_twos_naive(1928374) }
-  benchmark.report { p counter.count_twos(      1928374, false) }
+  benchmark.report { p counter.count_twos(         1928374) }
   benchmark.report { p counter.count_twos(321) }
   benchmark.report { p counter.count_twos(123) }
-  benchmark.report { p counter.counting_twos_naive(1928374) }
 end
 
 
@@ -113,8 +112,6 @@ end
   0.000000   0.000000   0.000000 (  0.000026)
  27
   0.000000   0.000000   0.000000 (  0.000026)
- 1169953
-  0.000000   0.000000   0.000000 (  0.000011)
 ```
 
 ```
